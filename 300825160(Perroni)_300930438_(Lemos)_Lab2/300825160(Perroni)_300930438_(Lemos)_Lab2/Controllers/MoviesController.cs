@@ -11,6 +11,8 @@ using Amazon.S3;
 using Amazon.S3.Transfer;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using System.IO;
+using Amazon.S3.Model;
 
 namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
 {
@@ -88,7 +90,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
                 }
 
                 // Push movie to S3 bucket
-                UploadMovieAsync(movie.Title).Wait();
+                UploadMovieAsync(movie.Title, file).Wait();
                 // After pushing, populate the URL property of the movie and then insert in the db
 
                 _context.Add(movie);
@@ -98,27 +100,36 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             return View(movie);
         }
 
-        private static async Task UploadMovieAsync(string MovieTitle)
+        private static async Task UploadMovieAsync(string MovieTitle, Microsoft.AspNetCore.Http.IFormFile file)
         {
-            try
-            {
-                Debug.WriteLine("In the try creating instance to upload");
-                var fileTransferUtility = new TransferUtility(s3);
+            // get the file and convert it to the byte[]
+            byte[] fileBytes = new Byte[file.Length];
+            file.OpenReadStream().Read(fileBytes, 0, Int32.Parse(file.Length.ToString()));
 
-                // Option 2
-                Debug.WriteLine("Before upload");
-                await fileTransferUtility.UploadAsync(sourcePath, bucketName, MovieTitle);
-                Debug.WriteLine("Upload 2 Complete");
-            }
-            catch (AmazonS3Exception e)
+            // create unique file name for prevent the mess
+            var fileName = Guid.NewGuid() + file.FileName;
+
+            PutObjectResponse response = null;
+
+            using (var stream = new MemoryStream(fileBytes))
             {
-                Debug.WriteLine("Error encountered in the server" + e.Message);
-            }
-            catch (Exception e)
+                var request = new PutObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = fileName,
+                    InputStream = stream,
+                    ContentType = file.ContentType,
+                    CannedACL = S3CannedACL.PublicRead
+                };
+
+                response = await s3.PutObjectAsync(request);
+            };
+
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                Debug.WriteLine("Unknown error encountered in the server." + e.Message);
+                Debug.WriteLine("File uploaded" );
             }
-        }
+            }
 
         private async Task GetMovieAsync(string FileName)
         {

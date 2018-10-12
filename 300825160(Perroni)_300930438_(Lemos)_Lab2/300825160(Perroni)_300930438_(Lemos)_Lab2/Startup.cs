@@ -43,7 +43,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddDbContext<kenny_andre_lab2Context>(options =>
@@ -61,7 +61,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -86,6 +86,29 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            Debug.WriteLine(services);
+            // This function when executed will add the admin role to a particular user
+            //CreateUserRoles(services).Wait();
+        }
+
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            IdentityResult roleResult;
+            //Adding Admin Role 
+            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database 
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            //Assign Admin role to the main User here we have given our newly registered  
+            //login id for Admin management 
+            IdentityUser user = await UserManager.FindByEmailAsync("k@e.com");
+            var User = new IdentityUser();
+            await UserManager.AddToRoleAsync(user, "Admin");
         }
     }
 }
