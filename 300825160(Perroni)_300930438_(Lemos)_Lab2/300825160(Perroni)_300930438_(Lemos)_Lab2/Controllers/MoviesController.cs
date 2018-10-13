@@ -67,7 +67,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             // This code downloads a movie given a title
             // The title must be accurate since it is how it was stored in the S3 bucket
             // **This code works; however, the call should be done through a button**
-            GetMovieAsync("a movie").Wait();
+           // GetMovieAsync("a movie").Wait();
             return View();
         }
 
@@ -107,7 +107,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             file.OpenReadStream().Read(fileBytes, 0, Int32.Parse(file.Length.ToString()));
 
             // create unique file name for prevent the mess
-            var fileName = Guid.NewGuid() + file.FileName;
+            //var fileName = Guid.NewGuid() + file.FileName;
 
             PutObjectResponse response = null;
 
@@ -116,7 +116,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
                 var request = new PutObjectRequest
                 {
                     BucketName = bucketName,
-                    Key = fileName,
+                    Key = MovieTitle,
                     InputStream = stream,
                     ContentType = file.ContentType,
                     CannedACL = S3CannedACL.PublicRead
@@ -131,8 +131,11 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             }
             }
 
-        private async Task GetMovieAsync(string FileName)
+        public async Task<IActionResult> GetMovieAsync(int? id)
         {
+            var movie = await _context.Movie
+                   .FirstOrDefaultAsync(m => m.Id == id);
+            string FileName = movie.Title;
             try
             {
                 Debug.WriteLine("In the try creating instance to download");
@@ -141,9 +144,10 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
                 // await fileTransferUtility.UploadAsync(sourcePath, bucketName);
                 // Debug.WriteLine("Upload 1 Complete");
 
+                Debug.WriteLine(FileName);
                 // Option 2
                 Debug.WriteLine("Before download");
-                await fileTransferUtility.DownloadAsync("C:\\Users\\T410\\Downloads\\" + FileName, bucketName, FileName);
+                await fileTransferUtility.DownloadAsync("C:\\Users\\"+Environment.ExpandEnvironmentVariables("%USERNAME%")+"\\Downloads\\" + FileName, bucketName, FileName);
                 Debug.WriteLine("Download 2 Complete");
             }
             catch (AmazonS3Exception e)
@@ -154,6 +158,8 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             {
                 Debug.WriteLine("Unknown error encountered in the server." + e.Message);
             }
+            ViewData["DownloadComplete"] = "Download complete!";
+            return View("Index", await _context.Movie.ToListAsync());
         }
 
         // GET: Movies/Edit/5

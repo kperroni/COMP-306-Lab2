@@ -164,7 +164,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral("\r\n        </dd>\r\n    </dl>\r\n</div>\r\n<div>\r\n    ");
             EndContext();
             BeginContext(1086, 54, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7aa9e96656b2497387a3e3836010acc2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2f0982dc0a19449db7cb6b11f1304f06", async() => {
                 BeginContext(1132, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -199,7 +199,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(1148, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9759d96aea964955b3a31dbacf054e8d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "03dff44fa0de4418a1d89e92fd03137e", async() => {
                 BeginContext(1170, 12, true);
                 WriteLiteral("Back to List");
                 EndContext();
