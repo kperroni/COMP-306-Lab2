@@ -13,34 +13,32 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using System.IO;
 using Amazon.S3.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
 {
+    [Authorize]
     public class MoviesController : Controller
     {
         private const string bucketName = "bucket4kenny";
-        private const string destName = "s3file.txt";
-        private const string sourcePath = "C:\\Users\\T410\\Centennial College\\Semester IV\\API & Cloud Computing\\Week 2\\testFile.txt";
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast2;
-        //SignInManager<IdentityUser> SignInManager;
+        private UserManager<IdentityUser> _userManager;
         static IAmazonS3 s3 { get; set; }
 
         private readonly kenny_andre_lab2Context _context;
 
-        public MoviesController(kenny_andre_lab2Context context, IAmazonS3 s3Client)
+        public MoviesController(kenny_andre_lab2Context context, IAmazonS3 s3Client, UserManager<IdentityUser> userManager)
         {
             _context = context;
             s3 = s3Client;
+            _userManager = userManager;
         }
 
         // GET: Movies
         public async Task<IActionResult> Index()
         {
-           // if (SignInManager.IsSignedIn(User))
-           // {
-                return View(await _context.Movie.ToListAsync());
-           // }
-           // return View("~/Views/Home/Index.cshtml");
+            return View(await  _context.Movie.Include(x => x.UserMovie).ToListAsync());
+            //return View(await _context.Movie.ToListAsync());
         }
 
         // GET: Movies/Details/5
@@ -92,7 +90,15 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
                 // Push movie to S3 bucket
                 UploadMovieAsync(movie.Title, file).Wait();
                 // After pushing, populate the URL property of the movie and then insert in the db
-
+                
+                // Populating object to store which user created what movie
+                var userM = new UserMovie
+                {
+                    // This line gets the ID of the logged user
+                    UserId = _userManager.GetUserId(HttpContext.User),
+                    MovieId = movie.Id
+                };
+                movie.UserMovie.Add(userM);
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -228,7 +234,10 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
                 return NotFound();
             }
 
-            return View(movie);
+            var userM = await _context.UserMovie
+                .FirstOrDefaultAsync(m => m.MovieId == id);
+
+                return View(movie);
         }
 
         // POST: Movies/Delete/5

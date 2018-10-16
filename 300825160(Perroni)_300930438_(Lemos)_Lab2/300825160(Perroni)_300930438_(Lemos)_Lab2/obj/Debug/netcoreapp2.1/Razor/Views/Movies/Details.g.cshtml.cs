@@ -165,7 +165,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral("\r\n        </dd>\r\n    </dl>\r\n</div>\r\n<div>\r\n    ");
             EndContext();
             BeginContext(1086, 54, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ecb5a9c9bead49528e7a3281cb3a17dc", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d94a46c8fa5c4f85ad7bfdfad6fac36c", async() => {
                 BeginContext(1132, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -200,7 +200,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(1148, 73, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5270c4689c3d45efbdb6f077b100a262", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e3be4d85da424bd6b077ccd67d1b1cfa", async() => {
                 BeginContext(1203, 14, true);
                 WriteLiteral("Download Movie");
                 EndContext();
@@ -235,7 +235,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(1229, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02fdd6f56dcd4865a4a355066f97c535", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7f8b1095ae714af1b8608af029a6ca1f", async() => {
                 BeginContext(1251, 12, true);
                 WriteLiteral("Back to List");
                 EndContext();

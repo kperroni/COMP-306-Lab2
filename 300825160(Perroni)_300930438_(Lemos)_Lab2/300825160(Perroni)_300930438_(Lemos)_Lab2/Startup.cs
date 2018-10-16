@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using _300825160_Perroni__300930438__Lemos__Lab2.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace _300825160_Perroni__300930438__Lemos__Lab2
 {
@@ -55,6 +56,8 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
                 googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
+
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -77,7 +80,6 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
 
             app.UseMvc(routes =>
@@ -86,7 +88,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            Debug.WriteLine(services);
+
             // This function when executed will add the admin role to a particular user
             //CreateUserRoles(services).Wait();
         }
