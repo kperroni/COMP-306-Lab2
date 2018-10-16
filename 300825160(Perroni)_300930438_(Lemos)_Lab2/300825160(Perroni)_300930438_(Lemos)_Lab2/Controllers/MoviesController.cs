@@ -49,7 +49,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie
+            var movie = await _context.Movie.Include(x => x.UserMovie)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
@@ -165,7 +165,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
                 Debug.WriteLine("Unknown error encountered in the server." + e.Message);
             }
             ViewData["DownloadComplete"] = "Download complete!";
-            return View("Index", await _context.Movie.ToListAsync());
+            return View("Index", await _context.Movie.Include(x => x.UserMovie).ToListAsync());
         }
 
         // GET: Movies/Edit/5
@@ -175,7 +175,6 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             {
                 return NotFound();
             }
-
             var movie = await _context.Movie.FindAsync(id);
             if (movie == null)
             {
