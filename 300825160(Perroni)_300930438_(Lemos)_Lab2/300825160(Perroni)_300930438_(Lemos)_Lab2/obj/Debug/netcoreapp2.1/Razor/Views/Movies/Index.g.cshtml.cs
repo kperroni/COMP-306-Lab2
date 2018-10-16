@@ -95,7 +95,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral("<p>\r\n    ");
             EndContext();
             BeginContext(336, 37, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "27466d154f7147feb452c0e55cab1b6e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "87cd0656bc17462897fe72ad10d93a7f", async() => {
                 BeginContext(359, 10, true);
                 WriteLiteral("Create New");
                 EndContext();
@@ -226,7 +226,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(1654, 53, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2d4de49fafba46e2890c94eb754016f1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf468eea0321401fb6bcdfb5a0a18c34", async() => {
                 BeginContext(1699, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -261,7 +261,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral(" |\r\n                    ");
             EndContext();
             BeginContext(1731, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0f557a0b36dd47a0836509da47093242", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "382682b777c64523af8fa479afe8f754", async() => {
                 BeginContext(1779, 7, true);
                 WriteLiteral("Details");
                 EndContext();
@@ -296,7 +296,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral(" |\r\n                    ");
             EndContext();
             BeginContext(1814, 57, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5875824109be4aeb99977aaaab8aa0b0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4337619786a540c38d8857148a0f2750", async() => {
                 BeginContext(1861, 6, true);
                 WriteLiteral("Delete");
                 EndContext();
@@ -331,7 +331,7 @@ using _300825160_Perroni__300930438__Lemos__Lab2.Models;
             WriteLiteral(" |\r\n                    ");
             EndContext();
             BeginContext(1895, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5c5efaf4a4db495d92841bd1d30753a2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a225873b1bf14616bf3ed07a27d89b3d", async() => {
                 BeginContext(1949, 14, true);
                 WriteLiteral("Download Movie");
                 EndContext();
