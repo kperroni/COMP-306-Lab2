@@ -49,7 +49,6 @@ C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\3
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\300825160(Perroni)_300930438_(Lemos)_Lab2.csproj.CoreCompileInputs.cache
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\300825160(Perroni)_300930438_(Lemos)_Lab2.RazorAssemblyInfo.cache
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\300825160(Perroni)_300930438_(Lemos)_Lab2.RazorAssemblyInfo.cs
-C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\300825160(Perroni)_300930438_(Lemos)_Lab2.AssemblyInfoInputs.cache
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\300825160(Perroni)_300930438_(Lemos)_Lab2.AssemblyInfo.cs
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\300825160(Perroni)_300930438_(Lemos)_Lab2.TagHelpers.input.cache
@@ -84,3 +83,4 @@ C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\3
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.g.cshtml.cs
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ViewImports.g.cshtml.cs
 C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Logout.g.cshtml.cs
+C:\Users\T410\source\repos\Lab 2 API\300825160(Perroni)_300930438_(Lemos)_Lab2\300825160(Perroni)_300930438_(Lemos)_Lab2\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs

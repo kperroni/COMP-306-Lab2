@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using _300825160_Perroni__300930438__Lemos__Lab2.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Amazon.DynamoDBv2;
 
 namespace _300825160_Perroni__300930438__Lemos__Lab2
 {
@@ -26,6 +27,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
             Configuration = configuration;
             var options = Configuration.GetAWSOptions();
             IAmazonS3 client = options.CreateServiceClient<IAmazonS3>();
+            IAmazonDynamoDB dynamoClient = options.CreateServiceClient<IAmazonDynamoDB>();
         }
 
         public IConfiguration Configuration { get; }
@@ -60,6 +62,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
             services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
+            services.AddAWSService<IAmazonDynamoDB>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

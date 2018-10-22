@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Identity;
 using System.IO;
 using Amazon.S3.Model;
 using Microsoft.AspNetCore.Authorization;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using _300825160_Perroni__300930438__Lemos__Lab2.DynamoDB;
+using Amazon.DynamoDBv2.DocumentModel;
 
 namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
 {
@@ -24,19 +28,23 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast2;
         private UserManager<IdentityUser> _userManager;
         static IAmazonS3 s3 { get; set; }
+        static IAmazonDynamoDB dynamoDb { get; set; }
 
         private readonly kenny_andre_lab2Context _context;
 
-        public MoviesController(kenny_andre_lab2Context context, IAmazonS3 s3Client, UserManager<IdentityUser> userManager)
+        public MoviesController(kenny_andre_lab2Context context, IAmazonS3 s3Client, UserManager<IdentityUser> userManager, IAmazonDynamoDB dynamoClient)
         {
             _context = context;
             s3 = s3Client;
             _userManager = userManager;
+            dynamoDb = dynamoClient;
         }
 
         // GET: Movies
         public async Task<IActionResult> Index()
         {
+            //await PushComment();
+            await ReadComments();
             return View(await  _context.Movie.Include(x => x.UserMovie).ToListAsync());
             //return View(await _context.Movie.ToListAsync());
         }
@@ -166,6 +174,43 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             }
             ViewData["DownloadComplete"] = "Download complete!";
             return View("Index", await _context.Movie.Include(x => x.UserMovie).ToListAsync());
+        }
+
+        // This function pushes a comment to the DynamoDB table in AWS
+        // There must be a validation block to check if the movie has any comments registered
+        // If not, a new item is created, otherwise, the movie-comment object must be loaded
+        // and the list of comments must be updated
+        private static async Task PushComment()
+        {
+            var context = new DynamoDBContext(dynamoDb);
+
+            var comment = new Comments
+            {
+                movieId = 1,
+                userComment = new List<UserComment>
+                {
+                    new UserComment
+                    {
+                        Id = System.Guid.NewGuid().ToString(),
+                        userId = "1234",
+                        comment = "Very good movie"
+                    }
+                }             
+            };
+            await context.SaveAsync(comment);
+        }
+
+        // This method reads the comments registered given the movie ID
+        private async Task ReadComments()
+        {
+            var context = new DynamoDBContext(dynamoDb);
+            var item = context.LoadAsync<Comments>(1);
+
+            Debug.WriteLine("Id = {0}", item.Id);
+            foreach (UserComment userC in item.Result.userComment)
+            {
+                Debug.WriteLine(userC.comment);
+            }
         }
 
         // GET: Movies/Edit/5
