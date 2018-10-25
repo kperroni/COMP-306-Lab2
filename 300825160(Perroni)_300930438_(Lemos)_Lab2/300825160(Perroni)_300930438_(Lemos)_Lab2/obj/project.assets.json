@@ -4827,10 +4827,11 @@
       ]
     },
     "AWSSDK.Extensions.NETCore.Setup/3.3.6": {
-      "sha512": "vGAUQtMHYUzSN4PuKHdBrgw79AXt8Fw7jSsRjZiSit/5VwJV6x4o4ZNcVNDrtUOE76rE695hMCIzr0pONS3FuQ==",
+      "sha512": "Sq70+FTn230Mdl3h+EgzSK8kyunhNfA3irxDmB2bTHfwzSxlagjytc1lrwHVrG5s8kOLNitwYyDKOUy+qTGmwg==",
       "type": "package",
       "path": "awssdk.extensions.netcore.setup/3.3.6",
       "files": [
+        ".signature.p7s",
         "awssdk.extensions.netcore.setup.3.3.6.nupkg.sha512",
         "awssdk.extensions.netcore.setup.nuspec",
         "lib/netstandard1.3/AWSSDK.Extensions.NETCore.Setup.dll",
@@ -6286,7 +6287,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational.Design/1.1.6": {
-      "sha512": "XVlEYWa4C0ZeO4MbiOlrRdz3ujaHJVYe1tK0IUh8dAT5OW1qAgUKcz2VEwj41tIBxBkeyMzj5UEECdpi3KQFkg==",
+      "sha512": "UVq94HrsK/eUSo4bkYBYW30UQ/uH2GoXcjTv7oIdeMKnAjLE3jm3C/BmftkQpr9beQCSbbcEySaVDhjlhrcQJQ==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.relational.design/1.1.6",
       "files": [
@@ -6312,7 +6313,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.SqlServer.Design/1.1.6": {
-      "sha512": "UgXcudeAi4mFO3Ynk12lfEDbsNWmDS8IgX+kJKrgxFaAl/E3yzJmF+8kR0MJ1n7NHAeAzL+Hb6w1+K6x9Yss8A==",
+      "sha512": "TBH6CWmLns4U38WO64Q9ecOcWdMHCdFX/2vM4aJtbrt2CftG4TbAY5/9BNVacw/64HbCv7Hzjk/5xU26gxL8Xg==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.sqlserver.design/1.1.6",
       "files": [
@@ -12627,23 +12628,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\T410\\.nuget\\packages\\": {},
+    "C:\\Users\\Andre\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\T410\\source\\repos\\Lab 2 API\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2.csproj",
+      "projectUniqueName": "C:\\Users\\Andre\\Documents\\AWS\\Project-Lab2\\COMP-306-Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2.csproj",
       "projectName": "300825160(Perroni)_300930438_(Lemos)_Lab2",
-      "projectPath": "C:\\Users\\T410\\source\\repos\\Lab 2 API\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2.csproj",
-      "packagesPath": "C:\\Users\\T410\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\T410\\source\\repos\\Lab 2 API\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\obj\\",
+      "projectPath": "C:\\Users\\Andre\\Documents\\AWS\\Project-Lab2\\COMP-306-Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2.csproj",
+      "packagesPath": "C:\\Users\\Andre\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Andre\\Documents\\AWS\\Project-Lab2\\COMP-306-Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\300825160(Perroni)_300930438_(Lemos)_Lab2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\T410\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

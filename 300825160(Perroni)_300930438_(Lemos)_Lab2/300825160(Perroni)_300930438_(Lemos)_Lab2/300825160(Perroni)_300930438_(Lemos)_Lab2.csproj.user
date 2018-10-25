@@ -15,5 +15,9 @@
     <_SelectedScaffolderID>IdentityScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Identity</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>803</WebStackScaffolding_ViewDialogWidth>
+    <ActiveDebugProfile>_300825160_Perroni__300930438__Lemos__Lab2</ActiveDebugProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
