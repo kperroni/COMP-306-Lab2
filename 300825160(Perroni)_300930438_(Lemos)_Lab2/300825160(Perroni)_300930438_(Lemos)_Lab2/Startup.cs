@@ -47,7 +47,8 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                 .AddDefaultUI();
 
             services.AddDbContext<kenny_andre_lab2Context>(options =>
                 options.UseSqlServer(
@@ -59,17 +60,19 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
 
-            services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
-            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
-            services.AddAWSService<IAmazonS3>();
-            services.AddAWSService<IAmazonDynamoDB>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
                 facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             });
+        
+        services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
+            services.AddAWSService<IAmazonDynamoDB>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

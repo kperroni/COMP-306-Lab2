@@ -44,7 +44,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
         public async Task<IActionResult> Index()
         {
             //await PushComment();
-            await ReadComments();
+           // await ReadComments();
             return View(await  _context.Movie.Include(x => x.UserMovie).ToListAsync());
             //return View(await _context.Movie.ToListAsync());
         }

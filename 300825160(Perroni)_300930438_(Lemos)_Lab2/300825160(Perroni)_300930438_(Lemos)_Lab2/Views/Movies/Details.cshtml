@@ -52,10 +52,10 @@
         var roles = await UserManager.GetRolesAsync(user);
         if (UserManager.GetUserId(User) == Model.UserMovie.FirstOrDefault().UserId || roles.FirstOrDefault() == "Admin")
         {
-            <a asp-action="Delete" asp-route-id="Model.Id">Delete</a> <span>|</span>
-            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <span>|</span>
+            <a asp-action="Delete" class="btn btn-danger" asp-route-id="Model.Id"><i class="fas fa-trash"></i> Delete</a> <span>|</span>
+            <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id"><i class="fas fa-edit"></i> Edit</a> <span>|</span>
         }
     }
-    <a asp-action="GetMovieAsync" asp-route-id="@Model.Id">Download Movie</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="GetMovieAsync" class="btn btn-success" asp-route-id="@Model.Id"><i class="fas fa-download"></i>  Download Movie</a> |
+    <a asp-action="Index" class="btn"><i class="fas fa-chevron-circle-left"></i> Back to List</a>
 </div>
