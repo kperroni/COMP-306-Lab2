@@ -112,7 +112,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                <p class=\"btn btn-primary\"><i class=\"fas fa-plus\"></i>\r\n                    ");
             EndContext();
             BeginContext(675, 58, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "15d1565143894178b6ead44f8e35f67b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8953f1263b1481e99e512731ab53a9d", async() => {
                 BeginContext(719, 10, true);
                 WriteLiteral("Create New");
                 EndContext();
@@ -251,7 +251,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n                                        </td>\r\n                                        <td>\r\n                                            ");
             EndContext();
             BeginContext(3124, 108, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "65e1c576aaea41efa8b38052758f96ea", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b13e555b3add48748b67bea62c23579a", async() => {
                 BeginContext(3193, 35, true);
                 WriteLiteral("<i class=\"fas fa-info\"></i> Details");
                 EndContext();
@@ -299,7 +299,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                                                    ");
             EndContext();
             BeginContext(3770, 109, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6a2dd22487de4d2683dd367fc910b619", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "69b38beb00f8493a9493298961118143", async() => {
                 BeginContext(3840, 35, true);
                 WriteLiteral("<i class=\"fas fa-trash\"></i> Delete");
                 EndContext();
@@ -335,7 +335,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral(" <span>|</span>\r\n                                                    ");
             EndContext();
             BeginContext(3948, 105, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "176271b3526d4aafb02ec77183ad88b2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a2f4045fa73f450dab314dec8138cbfa", async() => {
                 BeginContext(4017, 32, true);
                 WriteLiteral("<i class=\"fas fa-edit\"></i> Edit");
                 EndContext();
@@ -380,7 +380,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                                            ");
             EndContext();
             BeginContext(4212, 129, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "604fa6d0d076413699ac615a02de0d02", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5bde416eeaeb4607b311f63929938427", async() => {
                 BeginContext(4291, 46, true);
                 WriteLiteral("<i class=\"fas fa-download\"></i> Download Movie");
                 EndContext();
