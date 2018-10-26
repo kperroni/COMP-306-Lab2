@@ -63,8 +63,38 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["movieComments"] = await ReadCommentsOfMovieAsync(movie.Id);
             return View(movie);
+        }
+        [HttpPost]
+        public async Task DetailsAction(int id, string commentId, string submitButton, string movieComment)
+        {
+            
+            Debug.WriteLine("Comment Id is :" + commentId+" Button pressed was: "+submitButton);
+
+            switch (submitButton)
+            {
+                case "Delete":
+                    {
+                        var context = new DynamoDBContext(dynamoDb);
+                        Comments item = await ReadCommentsOfMovieAsync(id);
+                        UserComment ucToDelete = item.userComment.Find(uc => uc.Id == commentId);
+                        item.userComment.Remove(ucToDelete);
+                        await context.SaveAsync(item);
+                        break;
+                    }
+
+                case "Post Comment":
+                    {
+                        await PushComment(id, movieComment);
+                        break;
+                    }
+            }
+        }
+
+        private async Task DeleteAComment()
+        {
+
         }
 
         // GET: Movies/Create
@@ -184,24 +214,17 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
         public async Task PushComment(int id, string movieComment)
         {
             var context = new DynamoDBContext(dynamoDb);
-            var item = context.LoadAsync<Comments>(id);
-            Debug.WriteLine("Id = {0}", item.Result);
-            if (item.Result != null) {
-                Debug.WriteLine("Id = {0}", item);
-                foreach (UserComment userC in item.Result.userComment)
-                {
-                    Debug.WriteLine(userC.comment);
-                }
+            Comments item = await ReadCommentsOfMovieAsync(id);
+            if (item != null) {
                 UserComment uc = new UserComment
                 {
                     Id = System.Guid.NewGuid().ToString(),
                     userId = _userManager.GetUserId(HttpContext.User),
                     comment = movieComment
                 };
-                item.Result.userComment.Add(uc);
+                item.userComment.Add(uc);
                 await context.SaveAsync(item);
             }
-
             else {     
              var comment = new Comments
              {
@@ -221,16 +244,10 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
         }
 
         // This method reads the comments registered given the movie ID
-        private async Task ReadComments()
+        private async Task<Comments> ReadCommentsOfMovieAsync(int id)
         {
             var context = new DynamoDBContext(dynamoDb);
-            var item = context.LoadAsync<Comments>(1);
-
-            Debug.WriteLine("Id = {0}", item.Id);
-            foreach (UserComment userC in item.Result.userComment)
-            {
-                Debug.WriteLine(userC.comment);
-            }
+            return await context.LoadAsync<Comments>(id);
         }
 
         // GET: Movies/Edit/5
@@ -309,8 +326,15 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var dynamoContext = new DynamoDBContext(dynamoDb);
             var movie = await _context.Movie.FindAsync(id);
+            var userM = await _context.UserMovie
+                .FirstOrDefaultAsync(m => m.MovieId == id);
+            // Delete comments for that movie
+            await dynamoContext.DeleteAsync<Comments>(movie.Id);
             _context.Movie.Remove(movie);
+            _context.UserMovie.Remove(userM);
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

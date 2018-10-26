@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using _300825160_Perroni__300930438__Lemos__Lab2.DynamoDB
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
 @model _300825160_Perroni__300930438__Lemos__Lab2.Models.Movie
+
 
 @{
     ViewData["Title"] = "Details";
@@ -11,7 +13,7 @@
 
 <h2>Details</h2>
 
-<form asp-action="PushComment">
+<form asp-action="DetailsAction">
     <div>
 
         <h4>Movie</h4>
@@ -49,10 +51,36 @@
                 @Html.DisplayFor(model => model.Duration)
             </dd>
         </dl>
+        <h2>Movie Comments:</h2>
+        @{
+            if (ViewData["movieComments"] != null)
+            {
+                Comments data = (Comments)ViewData["movieComments"];
+                foreach (UserComment uc in data.userComment)
+                {
+                 var userCommented = await UserManager.FindByIdAsync(uc.userId);  
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" name="commentId" value="@uc.Id" />
+                            <input type="text" value="@uc.comment" />
+                            <label>Commented by: @userCommented.UserName</label>
+                            <input type="submit" value="Delete" name="submitButton" class="btn btn-default" />
+                        </div>
+                    </div>                
+                }
+            }
+            else
+            {
+               <label>No comments are registered for this movie</label>
+            }
+        }
+        <br />
         <label>Enter your comment</label>
         <input type="text" multiple="" name="movieComment" />
     </div>
     <div>
+        <input type="submit" value="Post Comment" name="submitButton" class="btn btn-default" /> <span>|</span>
+
         @{ var user = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
             var roles = await UserManager.GetRolesAsync(user);
             if (UserManager.GetUserId(User) == Model.UserMovie.FirstOrDefault().UserId || roles.FirstOrDefault() == "Admin")
@@ -61,8 +89,7 @@
                 <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <span>|</span>
             }
         }
-        <input type="submit" value="Post" class="btn btn-default" /> <span>|</span>
         <a asp-action="GetMovieAsync" asp-route-id="@Model.Id">Download Movie</a> |
         <a asp-action="Index">Back to List</a>
     </div>
-    </form>
+</form>
