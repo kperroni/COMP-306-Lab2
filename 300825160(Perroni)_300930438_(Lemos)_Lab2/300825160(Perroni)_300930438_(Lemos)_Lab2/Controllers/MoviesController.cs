@@ -44,7 +44,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
         public async Task<IActionResult> Index()
         {
             //await PushComment();
-            await ReadComments();
+            //await ReadComments();
             return View(await  _context.Movie.Include(x => x.UserMovie).ToListAsync());
             //return View(await _context.Movie.ToListAsync());
         }
@@ -180,24 +180,44 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
         // There must be a validation block to check if the movie has any comments registered
         // If not, a new item is created, otherwise, the movie-comment object must be loaded
         // and the list of comments must be updated
-        private static async Task PushComment()
+        [HttpPost]
+        public async Task PushComment(int id, string movieComment)
         {
             var context = new DynamoDBContext(dynamoDb);
-
-            var comment = new Comments
-            {
-                movieId = 1,
-                userComment = new List<UserComment>
+            var item = context.LoadAsync<Comments>(id);
+            Debug.WriteLine("Id = {0}", item.Result);
+            if (item.Result != null) {
+                Debug.WriteLine("Id = {0}", item);
+                foreach (UserComment userC in item.Result.userComment)
                 {
-                    new UserComment
-                    {
-                        Id = System.Guid.NewGuid().ToString(),
-                        userId = "1234",
-                        comment = "Very good movie"
-                    }
-                }             
-            };
-            await context.SaveAsync(comment);
+                    Debug.WriteLine(userC.comment);
+                }
+                UserComment uc = new UserComment
+                {
+                    Id = System.Guid.NewGuid().ToString(),
+                    userId = _userManager.GetUserId(HttpContext.User),
+                    comment = movieComment
+                };
+                item.Result.userComment.Add(uc);
+                await context.SaveAsync(item);
+            }
+
+            else {     
+             var comment = new Comments
+             {
+                 movieId = id,
+                 userComment = new List<UserComment>
+                 {
+                     new UserComment
+                     {
+                         Id = System.Guid.NewGuid().ToString(),
+                         userId = _userManager.GetUserId(HttpContext.User),
+                         comment = movieComment
+                     }
+                 }             
+             };
+                await context.SaveAsync(comment);
+            }
         }
 
         // This method reads the comments registered given the movie ID

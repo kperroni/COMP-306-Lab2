@@ -11,51 +11,58 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Sinopsis)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Sinopsis)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Duration)
-        </dd>
-    </dl>
-</div>
-<div>
-    @{  var user = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
-        var roles = await UserManager.GetRolesAsync(user);
-        if (UserManager.GetUserId(User) == Model.UserMovie.FirstOrDefault().UserId || roles.FirstOrDefault() == "Admin")
-        {
-            <a asp-action="Delete" asp-route-id="Model.Id">Delete</a> <span>|</span>
-            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <span>|</span>
+<form asp-action="PushComment">
+    <div>
+
+        <h4>Movie</h4>
+        <hr />
+        <input type="hidden" asp-for="@Model.Id" />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Sinopsis)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Sinopsis)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ReleaseDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Duration)
+            </dd>
+        </dl>
+        <label>Enter your comment</label>
+        <input type="text" multiple="" name="movieComment" />
+    </div>
+    <div>
+        @{ var user = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
+            var roles = await UserManager.GetRolesAsync(user);
+            if (UserManager.GetUserId(User) == Model.UserMovie.FirstOrDefault().UserId || roles.FirstOrDefault() == "Admin")
+            {
+                <a asp-action="Delete" asp-route-id="Model.Id">Delete</a> <span>|</span>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <span>|</span>
+            }
         }
-    }
-    <a asp-action="GetMovieAsync" asp-route-id="@Model.Id">Download Movie</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        <input type="submit" value="Post" class="btn btn-default" /> <span>|</span>
+        <a asp-action="GetMovieAsync" asp-route-id="@Model.Id">Download Movie</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+    </form>

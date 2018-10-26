@@ -47,7 +47,8 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
 
             services.AddDbContext<kenny_andre_lab2Context>(options =>
                 options.UseSqlServer(
