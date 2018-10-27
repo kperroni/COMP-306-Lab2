@@ -66,35 +66,74 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             ViewData["movieComments"] = await ReadCommentsOfMovieAsync(movie.Id);
             return View(movie);
         }
+
+        // This function pushes a comment to the DynamoDB table in AWS
+        // There must be a validation block to check if the movie has any comments registered
+        // If not, a new item is created, otherwise, the movie-comment object must be loaded
+        // and the list of comments must be updated
         [HttpPost]
-        public async Task DetailsAction(int id, string commentId, string submitButton, string movieComment)
+        public async Task<IActionResult> PushComment(int movieId, string movieComment)
         {
-            
-            Debug.WriteLine("Comment Id is :" + commentId+" Button pressed was: "+submitButton);
-
-            switch (submitButton)
+            var context = new DynamoDBContext(dynamoDb);
+            Comments item = await ReadCommentsOfMovieAsync(movieId);
+            if (item != null)
             {
-                case "Delete":
-                    {
-                        var context = new DynamoDBContext(dynamoDb);
-                        Comments item = await ReadCommentsOfMovieAsync(id);
-                        UserComment ucToDelete = item.userComment.Find(uc => uc.Id == commentId);
-                        item.userComment.Remove(ucToDelete);
-                        await context.SaveAsync(item);
-                        break;
-                    }
-
-                case "Post Comment":
-                    {
-                        await PushComment(id, movieComment);
-                        break;
-                    }
+                UserComment uc = new UserComment
+                {
+                    Id = System.Guid.NewGuid().ToString(),
+                    userId = _userManager.GetUserId(HttpContext.User),
+                    comment = movieComment
+                };
+                item.userComment.Add(uc);
+                await context.SaveAsync(item);
             }
+            else
+            {
+                var comment = new Comments
+                {
+                    movieId = movieId,
+                    userComment = new List<UserComment>
+                 {
+                     new UserComment
+                     {
+                         Id = System.Guid.NewGuid().ToString(),
+                         userId = _userManager.GetUserId(HttpContext.User),
+                         comment = movieComment
+                     }
+                 }
+                };
+                await context.SaveAsync(comment);
+            }
+            var movie = await _context.Movie.Include(x => x.UserMovie)
+                 .FirstOrDefaultAsync(m => m.Id == movieId);
+            ViewData["movieComments"] = await ReadCommentsOfMovieAsync(movie.Id);
+            return View("Details", movie);
         }
-
-        private async Task DeleteAComment()
+        [HttpPost]
+        public async Task<IActionResult> EditAComment(int movieId, string commentId, string userMovieComment)
         {
+            var context = new DynamoDBContext(dynamoDb);
+            Comments item = await ReadCommentsOfMovieAsync(movieId);
 
+            item.userComment.Find(uc => uc.Id == commentId).comment = userMovieComment;
+            await context.SaveAsync(item);
+            var movie = await _context.Movie.Include(x => x.UserMovie)
+                 .FirstOrDefaultAsync(m => m.Id == movieId);
+            ViewData["movieComments"] = await ReadCommentsOfMovieAsync(movie.Id);
+            return View("Details", movie);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteAComment(int movieId, string commentId)
+        {
+            var context = new DynamoDBContext(dynamoDb);
+            Comments item = await ReadCommentsOfMovieAsync(movieId);
+            UserComment ucToDelete = item.userComment.Find(uc => uc.Id == commentId);
+            item.userComment.Remove(ucToDelete);
+            await context.SaveAsync(item);
+            var movie = await _context.Movie.Include(x => x.UserMovie)
+                 .FirstOrDefaultAsync(m => m.Id == movieId);
+            ViewData["movieComments"] = await ReadCommentsOfMovieAsync(movie.Id);
+            return View("Details", movie);
         }
 
         // GET: Movies/Create
@@ -204,43 +243,6 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2.Controllers
             }
             ViewData["DownloadComplete"] = "Download complete!";
             return View("Index", await _context.Movie.Include(x => x.UserMovie).ToListAsync());
-        }
-
-        // This function pushes a comment to the DynamoDB table in AWS
-        // There must be a validation block to check if the movie has any comments registered
-        // If not, a new item is created, otherwise, the movie-comment object must be loaded
-        // and the list of comments must be updated
-        [HttpPost]
-        public async Task PushComment(int id, string movieComment)
-        {
-            var context = new DynamoDBContext(dynamoDb);
-            Comments item = await ReadCommentsOfMovieAsync(id);
-            if (item != null) {
-                UserComment uc = new UserComment
-                {
-                    Id = System.Guid.NewGuid().ToString(),
-                    userId = _userManager.GetUserId(HttpContext.User),
-                    comment = movieComment
-                };
-                item.userComment.Add(uc);
-                await context.SaveAsync(item);
-            }
-            else {     
-             var comment = new Comments
-             {
-                 movieId = id,
-                 userComment = new List<UserComment>
-                 {
-                     new UserComment
-                     {
-                         Id = System.Guid.NewGuid().ToString(),
-                         userId = _userManager.GetUserId(HttpContext.User),
-                         comment = movieComment
-                     }
-                 }             
-             };
-                await context.SaveAsync(comment);
-            }
         }
 
         // This method reads the comments registered given the movie ID

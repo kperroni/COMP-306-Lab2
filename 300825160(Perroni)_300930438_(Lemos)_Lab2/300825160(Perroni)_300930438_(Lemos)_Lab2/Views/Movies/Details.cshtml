@@ -13,12 +13,12 @@
 
 <h2>Details</h2>
 
-<form asp-action="DetailsAction">
+<form asp-action="PushComment">
     <div>
 
         <h4>Movie</h4>
         <hr />
-        <input type="hidden" asp-for="@Model.Id" />
+        <input type="hidden" name="movieId" value="@Model.Id" />
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Title)
@@ -51,32 +51,11 @@
                 @Html.DisplayFor(model => model.Duration)
             </dd>
         </dl>
-        <h2>Movie Comments:</h2>
-        @{
-            if (ViewData["movieComments"] != null)
-            {
-                Comments data = (Comments)ViewData["movieComments"];
-                foreach (UserComment uc in data.userComment)
-                {
-                 var userCommented = await UserManager.FindByIdAsync(uc.userId);  
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="hidden" name="commentId" value="@uc.Id" />
-                            <input type="text" value="@uc.comment" />
-                            <label>Commented by: @userCommented.UserName</label>
-                            <input type="submit" value="Delete" name="submitButton" class="btn btn-default" />
-                        </div>
-                    </div>                
-                }
-            }
-            else
-            {
-               <label>No comments are registered for this movie</label>
-            }
-        }
         <br />
-        <label>Enter your comment</label>
-        <input type="text" multiple="" name="movieComment" />
+    </div>
+    <div class="row">
+            <label>Enter your comment</label>
+            <textarea cols="40" rows="10" name="movieComment" style="resize:none"></textarea>
     </div>
     <div>
         <input type="submit" value="Post Comment" name="submitButton" class="btn btn-default" /> <span>|</span>
@@ -93,3 +72,57 @@
         <a asp-action="Index">Back to List</a>
     </div>
 </form>
+<h2>Movie Comments:</h2>
+@{
+    Comments data = (Comments)ViewData["movieComments"];
+    if (data != null)
+    {
+        if (data.userComment.Count != 0)
+        {
+
+            foreach (UserComment uc in data.userComment)
+            {
+                var userCommented = await UserManager.FindByIdAsync(uc.userId);
+                var userLogged = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
+                var roleOfUser = await UserManager.GetRolesAsync(userLogged);
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="" method="post">
+                            <input type="hidden" name="movieId" value="@Model.Id" />
+                            <input type="hidden" name="commentId" value="@uc.Id" />
+                            @{ if (UserManager.GetUserId(User) == uc.userId || roleOfUser.FirstOrDefault() == "Admin")
+                                {
+
+                                    <textarea name="userMovieComment" cols="40" rows="10" style="resize:none">@uc.comment</textarea>
+                                }
+                                else
+                                {
+                                    <textarea readonly="readonly" name="userMovieComment" cols="40" rows="10" style="resize:none">@uc.comment</textarea>
+
+                                }
+                            }
+                            <label>Commented by: @userCommented.UserName</label>
+                            @{
+                                if (UserManager.GetUserId(User) == uc.userId || roleOfUser.FirstOrDefault() == "Admin")
+                                {
+
+                                    <input type="submit" value="Delete" asp-action="DeleteAComment" asp-controller="Movies" class="btn btn-default" />
+                                    <input type="submit" id="editComment" value="Edit" asp-action="EditAComment" asp-controller="Movies" class="btn btn-default" />
+
+                                }
+                            }
+                        </form>
+                    </div>
+                    </div>
+            }
+        }
+        else
+        {
+            <label>No comments are registered for this movie</label>
+        }
+    }
+    else
+    {
+        <label>No comments are registered for this movie</label>
+    }
+}

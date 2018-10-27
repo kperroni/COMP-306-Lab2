@@ -48,6 +48,7 @@ namespace _300825160_Perroni__300930438__Lemos__Lab2
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
                 .AddDefaultUI();
 
             services.AddDbContext<kenny_andre_lab2Context>(options =>
